@@ -1,0 +1,21 @@
+{{ 'allu-product-request.scss.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'allu-product-detail-request.js' | asset_url }}" defer="defer"></script>
+
+<div class="block-request">
+  <div class="request-title-area">
+    <h3 class="request-title">リクエスト</h3>
+    <div class="request-description">
+      <p>この商品についてのリクエストを送信できます。</p>
+    </div>
+  </div>
+  <ul class="request-icons" data-url="{{settings.api_url}}/api/product/{{ product.id }}/request">
+    {%- for block in iconsRequest -%} 
+      {% render "allu-product-request-item", iconRequest: block.settings %}
+    {% endfor %}
+  </ul>
+  <ul class="request-notice">
+    <li>※リクエストが多いものから順次検討させていただきます。</li>
+    <li>※反映は予告なしに実施いたします。是非毎日チェックしてみてください。</li>
+    <li>※その他のリクエストについてはお気軽にお問い合わせください。</li>
+  </ul>
+</div>

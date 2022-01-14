@@ -1,0 +1,153 @@
+<nav class="pane-globalnav">
+    <div class="block-globalnav">
+        <div class="block-globalnav-logo"> <a class="block-globalnav-logo--link" href="/"> 
+            <img class="block-globalnav-logo--img" alt="sitelogo" src="{{settings.logo_url}}">
+            </a> </div>
+        <ul class="block-globalnav--item-list">
+            {% for link in linklists[section.settings.left_menu].links %}
+                {% liquid 
+                    if link.title == "Category"
+                        assign childCategory = link.links
+                    elsif link.title == "Brand"
+                        assign childBrand = link.links
+                        assign urlBrand = link.url
+                    endif
+                %}
+                <li>
+                    <a 
+                        href="{{ link.url }}" 
+                        class="js-megamenu-trigger"
+                        {% if link.title == "Category" or link.title == "Brand" %}data-toggle-content=".js-block-globalnav-menu--{{ link.title | downcase }}"{% endif %}
+                        {% if link.title == "Special Price" %}style="color: #e3000d;"{% endif %}
+                    >
+                    {{ link.title | upcase }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <ul class="block-globalnav--item-list-2">
+            {% for subLink in linklists[section.settings.right_menu].links %}
+            {% liquid 
+                assign subMenuTitle = subLink.title | strip | upcase
+                if subLink.title == "ONEGAI ALLU"
+                    assign childOnegai = subLink.links
+                elsif subLink.title == "SHOP LIST"
+                    assign childFavorite = subLink.links
+                endif
+            %}
+                <li>
+                    <a 
+                        href="{{ subLink.url }}" 
+                        class="js-dropdown-menu-trigger"
+                        {%- if subMenuTitle == "ONEGAI ALLU" -%}
+                        data-dropdown-menu-content=".js-dropdown-menu-content-shop-onegai"
+                        {% elsif subMenuTitle == "SHOP LIST" %}
+                        data-dropdown-menu-content=".js-dropdown-menu-content-shop-favorite"
+                        {% endif %}
+                    >{{ subMenuTitle }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!--BRAND hover時に開くメニュー-->
+        {% if childBrand != blank %}
+        <div class="block-globalnav-menu--brand js-block-globalnav-menu--brand">
+            <div class="block-globalnav-menu--brand-inner">
+                <div class="block-globalnav-menu--brand-list">
+                    <ul>
+                        {% for link in childBrand %}
+                            <li><a href="{{link.url}}">{{link.title}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="block-globalnav-menu--brand-list-link">
+                    <ul>
+                        <li><a class="btn btn-default" href="{{urlBrand}}">VIEW ALL</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if childBrand != blank %}
+        <div class="block-globalnav-menu--category js-block-globalnav-menu--category">
+            <div class="block-globalnav-menu--category-inner">
+                <ul>
+                    {% for link in childCategory %}
+                    <li> <a href="{{link.url}}">{{link.title}}</a>
+                        <ul>
+                            {% for childLink in link.links %}
+                            <li><a href="{{childLink.url}}">{{childLink.title}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <!-- 検索 -->
+        <div class="block-global-search js-block-global-search is-open">
+            <div class="block-global-search-form">
+                <form name="frmSearch" method="get" action="#">
+                    <input class="block-global-search--keyword js-suggest-search js-global-search--keyword" type="text"
+                        value="" tabindex="1" id="q" placeholder="ブランド名・キーワードで探す" title="商品を検索する" name="q"
+                        data-suggest-submit="on" autocomplete="off">
+                    <label for="q" class="block-global-search--icon">
+                        <button class="block-global-search--icon-button" type="submit"><span
+                                class="icon icon-search"></span></button>
+                    </label>
+                </form>
+                <a
+                    class="close-btn block-global-search-toggle-content-close-btn js-block-global-search-toggle-content-close-btn">閉じる</a>
+            </div>
+        </div>
+        <!-- 検索 -->
+        <!-- <div id="poplink"></div> -->
+    </div>
+</nav>
+
+{% if childOnegai != blank %}
+<div class="dropdown-menu-content dropdown-menu-content-onegai js-dropdown-menu-content-shop-onegai">
+    <ul>
+        {% for link in childOnegai %}
+            <li><a href="{{link.url}}">{{link.title}}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% if childFavorite != blank %}
+<div class="dropdown-menu-content dropdown-menu-content-favorite js-dropdown-menu-content-shop-favorite">
+    <ul>
+        {% for link in childFavorite %}
+            <li><a href="{{link.url}}">{{link.title}}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{{ 'allu-pane-globalnav-info.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'allu-pane-globalnav-info.js' | asset_url }}" defer="defer"></script>
+<global-nav-noti data-url="{{settings.api_url}}/api/globalnav-noti">
+    <div class="pane-globalnav-info"></div>
+</global-nav-noti>
+
+{% schema %}
+{
+  "name": "Global Navigation",
+  "settings": [
+  {
+    "type": "text",
+    "id": "left_menu",
+    "label": "Left menu",
+    "default": "MAIN-MENU"
+  },
+  {
+    "type": "text",
+    "id": "right_menu",
+    "label": "Right menu",
+    "default": "MAIN-SUB-MENU"
+  }
+  ]
+}
+{% endschema %}

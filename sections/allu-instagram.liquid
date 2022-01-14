@@ -1,0 +1,68 @@
+{{ 'allu-instagram.css' | asset_url | stylesheet_tag }}
+
+<div class="goods_visumo">
+  <div
+    class="ecbn-selection-widget initailized ecbn-selection-widget-new"
+    data-type="selection"
+    data-selection="allu-instagram"
+    data-userid="e3051808-1f0a-44ab-aeda-2be31536319a"
+    style="display: block"
+    data-isnew-design="true"
+    data-ga-eventtracking=""
+  >
+    <div class="ecbn-selection-wrapper" data-image_col_count="0">
+      <div class="ecbn-selection-header"></div>
+      <div class="ecbn-selection-header2">
+        <div class="ttle_instagram">
+          <h2>INSTAGRAM</h2>
+          <p>
+            Instagramに<span style="color: red">#ALLUvintage</span
+            >をつけてコーデをシェアしよう。<br />
+            SNSスタッフから掲載のご連絡後、
+            あなたの写真がサイトにアップされます！
+          </p>
+        </div>
+      </div>
+      <div class="ecbn-selection-page-tabs-area">
+        <script
+          src="{{ 'allu-instargram-type.js' | asset_url }}"
+          defer="defer"
+        ></script>
+        <instagram-type data-url="{{ settings.api_url }}/api/instagram/type">
+          <ul class="ecbn-selection-page-tabs"></ul>
+        </instagram-type>
+      </div>
+
+      <script
+        src="{{ 'allu-instargram-images.js' | asset_url }}"
+        defer="defer"
+      ></script>
+      <instagram-images
+        data-url="{{ settings.api_url }}/api/instagram"
+      ></instagram-images>
+
+      <div class="ecbn-selection-footer2" style="">
+        <span class="ecbn-selection-powered-pre">Powered By</span
+        ><a class="ecbn-selection-powered-name" href="#"
+          ><img
+            class="ecbn-visumo-logo"
+            src="{{section.settings.visumo_logo}}"
+            alt="visumo"
+        /></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.allu-instagram.name",
+  "settings": [
+  {
+    "type": "text",
+    "id": "visumo_logo",
+    "label": "t:sections.allu-instagram.settings.visumo_logo.label"
+  }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html data-browse-mode="P" lang="ja">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	{{ content_for_header }}
+
+	<title>{{product.title}}</title>
+
+	<meta name="viewport" content="width=1200">
+	<meta name="wwwroot" content="" />
+	<meta name="google-site-verification" content="c84MG5095r17JASP6PJlotetbFVo00zL64vXkioXLSU" />
+
+	{{ 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.min.css' | stylesheet_tag }}
+	{{ 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' | stylesheet_tag }}
+	{{ 'https://fonts.googleapis.com/css?family=Josefin+Sans' | stylesheet_tag }}
+	{{ 'https://fonts.googleapis.com/css?family=Abhaya+Libre' | stylesheet_tag }}
+
+	{{ 'allu-lib-slick.css' | asset_url | stylesheet_tag }}
+	{{ 'allu-slick-theme.css' | asset_url | stylesheet_tag }}
+	{{ 'allu-style.css' | asset_url | stylesheet_tag }}
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+	
+	<script src="{{ 'allu-slick.min.js' | asset_url }}"></script>
+	<script src="{{ 'allu-lib-jquery.cookie.js' | asset_url }}"></script>
+	<script src="{{ 'allu-lib-jquery.balloon.js' | asset_url }}"></script>
+	<script src="{{ 'allu-jquery.tile.min.js' | asset_url }}"></script>
+	<script src="{{ 'allu-lib-modernizr-custom.js' | asset_url }}"></script>
+	<script src="{{ 'allu-sys-common.js' | asset_url }}"></script>
+	<script src="{{ 'allu-sys.js' | asset_url }}"></script>
+	<script src="{{ 'allu-sys-ui.js' | asset_url }}"></script>
+	<script src="{{ 'allu-usr-user.js' | asset_url }}"></script>
+
+
+	<style>
+		body{
+			overflow-x: hidden;
+		}
+		.flipdesk .flipdesk-trigger .flipdesk-trigger-content {
+			font-family: 'Josefin Sans', "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W6", "Hiragino Kaku Gothic Pro", Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+		}
+	</style>
+
+	<script type="text/javascript">
+		(function () {
+			var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.charset = "utf-8"; pa.async = true;
+			pa.src = window.location.protocol + "//api.popin.cc/searchbox/action_allu-official.js";
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pa, s);
+		})(); 
+	</script>
+	
+	{{ 'https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.9/dist/css/splide.min.css' | stylesheet_tag }}
+	<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.9/dist/js/splide.min.js"></script>
+
+
+</head>
+
+<body class="page-goods">
+
+	<div class="wrapper">
+
+		{% section 'allu-header' %}
+
+		{% section 'allu-pane-globalnav' %}
+
+		{% section 'allu-pane-topic-path' %}
+
+		<main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+			{{ content_for_layout }}
+		</main>
+
+		{% section 'allu-footer' %}
+
+	</div>
+	<!-- WorldShopping Checkout -->
+	<script type="text/javascript" charset="UTF-8" async="true"
+		src="https://checkout-api.worldshopping.jp/v1/script?token=allu-official_com"></script>
+	<!-- End WorldShopping Checkout -->
+
+</body>
+</html>

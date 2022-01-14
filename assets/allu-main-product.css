@@ -1,0 +1,40 @@
+.block-contact-tel {
+  margin-left: 10px;
+}
+
+.block-goods-favorite {
+  margin-bottom: 20px;
+}
+
+.block-contact-about-goods {
+  margin-left: 10px;
+}
+.block-icon--henpin_huka-msg {
+  font-size: 12px;
+  height: 32px;
+  line-height: 3;
+  margin-left: 10px;
+  color: #888888;
+}
+
+#unisize_1000 {
+  z-index: 1;
+}
+
+.unisize-nb-image,
+.unisize-eb-image {
+  z-index: 2;
+}
+
+.unisize-nb-content:after,
+.unisize-eb-content:after {
+  z-index: 1;
+}
+
+.unisize-nb-info,
+.unisize-eb-info {
+  z-index: 3;
+}
+#actionRecommendArea .block-thumbnail-h li:last-child{
+    margin-left: 0!important;
+}

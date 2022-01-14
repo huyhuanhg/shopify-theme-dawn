@@ -1,0 +1,86 @@
+<header id="header" class="pane-header">
+  <div class="block-header-bnr">
+    <top-banner data-url="{{settings.api_url}}/api/top-banner">
+
+    </top-banner>
+  </div>
+  <div class="block-header">
+    <div class="block-header-logo">
+      <h1><a class="block-header-logo--link" href="/"> <img class="block-header-logo--img"
+            alt="{{settings.logo_alt}}"
+            src="{{settings.logo_url}}"> </a></h1>
+    </div>
+    <div class="block-headernav">
+      <ul class="block-headernav--item-list">
+        <li> <a href="#" class="js-dropdown-menu-trigger"
+            data-dropdown-menu-content=".js-dropdown-menu-content-favorite"> <span
+              class="icon icon-favorite"></span> <span class="label">お気に入り</span> </a> </li>
+        <li> 
+          
+          {% if customer %}
+            {% capture first_name %}<a href="{{ routes.account_url }}">{{ customer.first_name }}</a>{% endcapture %}
+            {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }} &middot; {{ 'layout.customer.log_out' | t | customer_logout_link }}
+          {% else %}
+            {{ '<span class="icon icon-login"></span> <span class="label">ログイン</span>' | customer_login_link }}
+          {% endif %}
+                
+        </li>
+        <li> <a href="{{ routes.cart_url }}"> <span class="icon icon-bag"></span> <span
+              class="block-headernav--cart-count js-cart-count"></span> <span
+              class="label">カート</span> </a> </li>
+        <li> <a href="#"> <span class="icon icon-stock"></span> <span
+              class="block-headernav--stock-count js-stock-count"></span> <span
+              class="label">お取り寄せ</span> </a> </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+
+
+
+<div class="dropdown-menu-content dropdown-menu-content-favorite js-dropdown-menu-content-favorite">
+  <ul>
+    <li><a href="#">アイテム一覧</a></li>
+    <li><a href="#">ブランド一覧</a></li>
+  </ul>
+</div>
+
+{% javascript %}
+class TopBanner extends HTMLElement {
+  constructor() {
+    super();
+    this.fetchTopBanner();
+  }
+  
+
+  fetchTopBanner() {
+    fetch(
+      this.dataset.url,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((json) => {
+        this.renderTopBanner(json);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }
+
+  renderTopBanner(topBanner) {
+    this.innerHTML = `
+      <div class="block-header-top-banner-repeat" style="background-image: url(${topBanner.background_image});">
+        <a href="${topBanner.link_to}">
+        <img src="${topBanner.img_src}" alt="${topBanner.img_alt}"></a>
+      </div>`;
+  }
+}
+
+customElements.define("top-banner", TopBanner);
+
+{% endjavascript %}

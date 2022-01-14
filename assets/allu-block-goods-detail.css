@@ -1,0 +1,69 @@
+.block-goods-detail-loan-message {
+    margin-bottom: 10px;
+    padding: 20px 0;
+  }
+
+  .block-goods-detail-loan-message em {
+    margin-right: 14px;
+    font-style: normal;
+  }
+
+  .block-goods-detail-loan-message>p>span {
+    display: inline-block;
+    text-decoration: underline;
+  }
+
+  .block-goods-detail-loan-message-inner .block-jaccs {
+    display: block;
+    text-align: center;
+    margin: 15px 0 5px;
+  }
+
+  .block-goods-detail-loan-message-inner .block-jaccs a {
+    display: block;
+    width: 352px;
+    margin: 0 auto;
+  }
+
+  .block-goods-detail-loan-message-inner .block-orico {
+    display: block;
+    text-align: center;
+    margin: 0 auto 8px;
+  }
+
+  .block-goods-detail-loan-message-inner .block-orico-form {
+    display: block;
+    width: 352px;
+    margin: 0 auto;
+  }
+
+  .block-goods-detail-loan-message-inner .goods-orico-btn {
+    width: 352px;
+  }
+
+  .block-goods-detail-loan-message-inner .block-caution {
+    color: #8d8d8d;
+    font-size: 11px;
+    margin-top: 10px;
+  }
+
+  .block-goods-detail-loan-message-inner .block-price {
+    font-size: 15px;
+    padding-top: 6px;
+  }
+
+  .block-goods-detail-loan-message-inner #price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #e3000d;
+    vertical-align: bottom;
+  }
+
+  .block-goods-detail-loan-message-inner #price::before {
+    content: "￥";
+    letter-spacing: -1px;
+    font-size: 80%;
+    font-weight: bold;
+    vertical-align: bottom;
+  }
+  

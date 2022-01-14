@@ -1,0 +1,6 @@
+<li class="block-goods-gallery--src-l">
+    <a href="{{ image.src | img_url: '1024x1024', scale: 2 }}" name="{{ barcode }}"
+        title="{{image.alt | escape}}">
+        <figure><img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}"></figure>
+    </a>
+</li>

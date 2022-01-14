@@ -1,0 +1,27 @@
+.pane-globalnav-info {
+  margin: 8px auto;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.pane-globalnav-info a {
+  display: block;
+  padding: 9px;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.pane-globalnav-info-title {
+  color: #fff;
+  padding: 4px 10px;
+  display: inline-block;
+  background-color: #e3000d;
+  font-size: 13px;
+}
+
+.pane-globalnav-info-text {
+  display: inline-block;
+  padding-left: 12px;
+}

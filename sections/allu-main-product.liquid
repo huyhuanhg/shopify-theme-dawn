@@ -1,0 +1,530 @@
+{%- liquid
+  if product.variants.size > 0
+  assign productVariants = product.variants[0]
+  assign barcode = productVariants.barcode
+  assign color = productVariants.option1
+  assign material = productVariants.option2
+  assign size = productVariants.option3
+  endif
+  -%}
+
+	{{ 'allu-main-product.css' | asset_url | stylesheet_tag }}
+
+<div class="pane-contents">
+  <div class="container">
+    <main class="pane-main">
+      <div class="block-icon--henpin_huka-msg" style="display: none;">※AmazonPayは返品対象外</div>
+      <script>
+        jQuery(document).ready(function () {
+          var altText = jQuery('.block-icon--henpin_huka img').attr('alt');
+          if (altText == '返品可') {
+            jQuery('.block-icon--henpin_huka-msg').insertAfter('.block-icon--henpin_huka img');
+            jQuery('.block-icon--henpin_huka-msg').css('display', 'block');
+          }
+        });
+      </script>
+      <main class="pane-main">
+        <div class="block-goods-detail">
+          <div class="pane-goods-header">
+
+            <div class="block-goods-detail--promotion-freespace">
+
+            </div>
+          </div>
+          <div class="pane-goods-left-side" id="gallery">
+            <div class="block-goods-gallery-wrapper">
+
+              <div class="block-icon">
+                <span class="block-icon--auto-on-sales"><img src="{{section.settings.sale_image}}"
+                    alt=""></span>
+
+              </div>
+
+
+              {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+              <div class="block-src-l-zoom-layer js-block-src-l-zoom-layer">
+                <figure><img src="{{ featured_image | img_url : "520x520" }}"
+                    data-zoom-image="{{ featured_image | img_url : "5200x5200" }}"
+                    alt="{{ featured_image.alt | escape }}" class="block-src-l--image"></figure>
+              </div>
+              <div class="block-src-l js-gallery-slider-main">
+                {% for image in product.images %}
+                <a href="{{ image.src | img_url : "520x520" }}" name="{{ barcode }}"
+                  title="{{ image.alt | escape }}">
+                  <figure><img src="{{ image.src | img_url : "520x520" }}"
+                      data-zoom-image="{{ image.src | img_url : "5200x5200" }}"
+                      alt="{{ image.alt | escape }}" class="block-src-l--image"></figure>
+                </a>
+                {% endfor %}
+              </div>
+
+              {% if product.images.size > 1 %}
+              <div class="block-goods-gallery" id="gallery">
+                <ul class="js-gallery-slider-thums">
+                  {% for image in product.images %}
+                  {% render "allu-product-image" with image: image, barcode: barcode %}
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+            </div>
+
+
+
+<script src="{{ 'allu-product-recommendations.js' | asset_url }}" defer="defer"></script>
+<allu-product-recommendations data-url="{{ routes.product_recommendations_url }}.json?product_id={{ product.id }}&limit=16">
+  <div id="actionRecommendArea">
+    <div id="spotonRecommendWrapper">
+      <div>
+        <p style="font-size:20px;font-weight:bold;margin:50px 0 20px 0">おすすめアイテム</p>
+        <ul class="block-thumbnail-h">
+        </ul>
+      </div>
+    </div>
+  </div>
+</allu-product-recommendations>
+
+
+          </div>
+          <div class="pane-goods-right-side">
+            <form name="frm" method="GET" action="#">
+              <div class="block-icon">
+                <span class="block-icon--src1"><img src="{{section.settings.icon_souko}}"></span>
+
+                <span class="block-icon--henpin_huka"><img src="{{section.settings.icon_henpin}}"
+                    alt="返品可"></span>
+
+              </div>
+
+              <div class="block-goods-brand-name">
+                <p class="block-goods-brand-name--text">{{ product.metafields.product_detail.brand.value }}</p>
+              </div>
+
+              <div class="block-goods-name">
+                <h1 class="h1 block-goods-name--text js-enhanced-ecommerce-goods-name">{{ product.title }}</h1>
+              </div>
+
+              <div class="block-goods-detail-info-wrapper">
+
+                <div class="block-goods-detail-rank-wrapper">
+                  <dl class="block-goods-detail-rank goods-rank">
+                    <dt class="block-goods-detail-rank--title goods-rank--title">商品ランク</dt>
+                    <dd class="block-goods-detail-rank--value goods-rank--value">
+                      <script src="{{ 'allu-product-rate.js' | asset_url }}" defer="defer"></script>
+                      <product-rate data-url="{{settings.api_url}}/api/product/{{ product.id }}/rate"></product-rate>
+                    </dd>
+                  </dl>
+                  <div class="block-goods-detail-rank-detail-link js-goods-detail-rank-detail-link">
+                    <a class="js-rank-trigger-btn" href="javascript:void(0);">ランクについて</a>
+                  </div>
+                </div>
+
+
+                <div class="block-goods-detail-info">
+                  <dl class="block-goods-detail-goodsid">
+                    <dt class="block-goods-detail-goodsid--title">商品番号</dt>
+
+
+                    <dd class="block-goods-detail-goodsid--value">{{ barcode }}</dd>
+                  </dl>
+                </div>
+              </div>
+
+
+
+              {% if product.compare_at_price %}
+              {% capture discount %}
+              {{ product.compare_at_price | minus:product.price | times:100 | divided_by:product.compare_at_price }}%
+              {% endcapture %}
+              {% endif %}
+
+              <div class="block-goods-price">
+
+                <div class="block-goods-price--default-price default-price"><span class="title">通常価格</span><span
+                    class="value">{{ product.compare_at_price | money }}</span></div>
+                <div class="block-goods-price--on-sales-price price js-enhanced-ecommerce-goods-price">
+                  {% if discount %}
+                  <span class="title">{{ discount }}OFF</span>
+                  {% endif %}
+                  <span class="value">{{ product.price | money }}</span><span class="tax-text">（税込）</span>
+                </div>
+
+              </div>
+
+              <div class="block-goods-detail-wrapper">
+
+                <div class="goods-detail-delivery-conditions-comment">
+                  <span class="icon-truck"></span>
+                  <p>関東エリアなら01/15土曜日までに配送可能</p>
+                </div>
+
+                <script src="{{ 'allu-product-visit.js' | asset_url }}" defer="defer"></script>
+                <product-visit data-url="{{settings.api_url}}/api/product/{{product.id}}/visit"></product-visit>
+              </div>
+
+              {% form 'product', product, class:form_class, id:form_id, data-product-form: '' %}
+              <div class="block-goods-detail-loan-message">
+                <p><em>分割60回まで金利手数料無料</em><span>ショッピングローンが使えます</span></p>
+              </div>
+              <div class="block-add-cart">
+                <button type="submit" name="add" id="addToCart-{{ section.id }}" class="block-add-cart--btn btn btn-primary js-enhanced-ecommerce-add-cart-detail">
+                  カートへ入れる
+                  <span class="icon icon-cart"></span>
+                </button>
+              </div>
+              {% endform %}
+
+
+
+
+
+              <div class="block-variation"><input name="goods" type="hidden" value="VX013794">
+              </div>
+
+
+
+              <div class="block-contact-stock-goods">
+                <a class="block-contact-stock-goods--btn btn btn-default"
+                  href="#">店舗で実物を見てみる<span
+                    class="icon icon-stock"></span></a>
+                <!-- Ngày đến dự kiến ​​của các mặt hàng có sẵn -->
+                <script src="{{ 'allu-arrival-date.js' | asset_url }}" defer="defer"></script>
+                <estimated-arrival-date data-url="{{settings.api_url}}/api/estimated-arrival-date/{{ product.id }}"></estimated-arrival-date>
+              </div>
+
+
+
+
+
+
+              <div class="block-goods-favorite">
+                <div class="block-goods-favorite-goods">
+                  <a class="favorite-add-btn js-favorite-add-btn"
+                    href="javascript:location.href='#"><span
+                      class="icon icon-favorite-add"></span><span class="label">このアイテムをお気に入り追加</span></a>
+                </div>
+                <div class="block-goods-favorite-brand">
+                  <a class="favorite-add-btn js-favorite-brand-add-btn js-user-modal--open-btn"
+                    href="javascript:void(0)" data-modal-content-selector=".js-favorite-brand-add-modal"
+                    data-modal-classname="favorite-brand-add-modal"><span class="icon icon-favorite-add"></span><span
+                      class="label">このブランドをお気に入り追加</span></a>
+                </div>
+              </div>
+
+
+              <div id="unisize_tag" data-cid="9Fyxut7v6ZUbBz" data-cuid="" data-itm="VX013794"
+                style="margin-bottom:20px;"></div>
+
+              <div class="block-contact-wrapper">
+                <div class="block-contact-tel">
+                  <span class="icon icon-phone-call"></span>
+                  <span class="block-contact-tel-title">お電話でのお問い合わせ</span>
+                  <span class="block-contact-tel-time">受付時間： 平日{{settings.start_time}}～{{settings.end_time}}</span>
+                  <span class="block-contact-tel-number">{{settings.number_phone}}</span>
+                </div>
+
+                <div class="block-contact-about-goods">
+                  <a class="block-contact-about-goods--btn"
+                    href="#"><span
+                      class="icon-mail"></span>メールでのお問い合わせ</a>
+                </div>
+
+
+              </div>
+
+              <div class="block-sns-share-links">
+                <div class="block-sns-share-links--twitter"><a href="javascript:void(0);"
+                    class="js-btn-sns-twitter"><span class="icon-twitter"></span></a></div>
+                <div class="block-sns-share-links--facebook"><a href="javascript:void(0);"
+                    class="js-btn-sns-facebook"><span class="icon-facebook"></span></a>
+                </div>
+                <div class="block-sns-share-links--line"><a href="javascript:void(0);" class="js-btn-sns-line"><span
+                      class="icon-line"></span></a></div>
+              </div>
+
+
+
+
+
+              <div class="goods-detail-description-wrapper">
+                <h3 class="goods-detail-description--title">商品説明</h3>
+                <div class="goods-detail-description--size-guide-link">
+                  <a href="#">サイズガイドはこちら<span
+                      class="icon-window"></span></a>
+                </div>
+                <dl class="goods-detail-description block-goods-category">
+                  <dt>カテゴリ</dt>
+                  <dd>
+                    <a href="#">アパレル</a>
+
+                    &nbsp;&gt;&nbsp;<a href="#">アウター</a>
+
+
+                    &nbsp;&gt;&nbsp;<a href="#">ジャケット</a>
+
+
+                    &nbsp;&gt;&nbsp;<a href="#"></a>
+
+                  </dd>
+                </dl>
+
+
+                <dl class="goods-detail-description">
+                  <dt>ブランド</dt>
+                  <dd><a href="#">{{ product.metafields.product_detail.brand.value}}</a></dd>
+                </dl>
+
+                <dl class="goods-detail-description block-goods-size">
+                  <dt>サイズ</dt>
+                  <dd>{{size}}</dd>
+                </dl>
+
+
+                <dl class="goods-detail-description  block-goods-color">
+                  <dt>カラー</dt>
+                  <dd>{{color}}</dd>
+                </dl>
+
+
+
+                <dl class="goods-detail-description">
+                  <dt>素材</dt>
+                  <dd>{{material}}</dd>
+                </dl>
+                <dl class="goods-detail-description">
+                  <dt>備考</dt>
+                  <dd>{{ product.description }}</dd>
+                </dl>
+
+
+
+
+              </div>
+              <div id="unisize_1000"></div>
+              <script type="text/javascript" src="https://bnr.cl.unisize.makip.co.jp/tag/unisize.js"></script>
+              <!-- ▼商品ランク説明▼ -->
+              <script>
+                jQuery(function () {
+                  var rank_modal = jQuery('.block-about-goods-rank-overlay, .block-about-goods-rank-wrap');
+                  jQuery(rank_modal).hide();
+                  jQuery('.js-rank-trigger-btn').click(function () {
+                    jQuery(rank_modal).show();
+                    jQuery('body').css('overflow', 'hidden');
+                  });
+                  jQuery('.block-about-goods-rank-overlay').click(function () {
+                    jQuery(rank_modal).hide();
+                    jQuery('body').css('overflow', 'auto');
+                  });
+                  jQuery('#block-about-goods-rank-close').click(function () {
+                    jQuery(rank_modal).hide();
+                    jQuery('body').css('overflow', 'auto');
+                  });
+                });
+              </script>
+
+              {% render 'allu-product-request', iconsRequest: section.blocks %}
+
+
+          </div>
+
+          <div class="pane-goods-footer">
+            <div class="block-goods-footer-cart-fixed">
+              <form name="frm" method="GET" action="#">
+                <div class="block-goods-footer-cart-fixed-inner">
+                  <div class="block-goods-footer-cart-fixed--goods-info">
+                    <p class="block-goods-footer-cart-fixed--brand-name">{{ product.metafields.product_detail.brand.value}}</p>
+                    <p class="block-goods-footer-cart-fixed--goods-name">{{product.title}}</p>
+                  </div>
+                  <div class="block-goods-footer-cart-fixed--goods-price">
+                    <div class="block-goods-price--price price js-enhanced-ecommerce-goods-price">
+                      {{ product.price | divided_by: 100 }}</div>
+                  </div>
+                  <div class="block-goods-footer-cart-fixed--favorite-goods">
+                    <a class="favorite-add-btn js-favorite-add-btn" href="javascript:void(0)"
+                      data-goodsid="{{barcode}}"><span class="icon icon-favorite-add"></span><span
+                        class="label">このアイテムをお気に入り追加</span></a>
+                  </div>
+
+                  <input type="hidden" value=VX013794 name="goods">
+
+                  <div class="block-add-cart">
+
+                    <button class="block-add-cart--btn btn btn-primary js-enhanced-ecommerce-add-cart-detail"
+                      type="submit" value="カートへ入れる">カートへ入れる<span class="icon-bag"></span></button>
+
+
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+
+        </div>
+  </div>
+
+
+
+
+  </main>
+
+  <!-- zoom -->
+  <script src="https://allu-official.com/lib/elevatezoom-master/jquery.elevatezoom.js"></script>
+  <script src="https://allu-official.com/js/sys/goods_zoomjs.js"></script>
+
+
+
+  <!-- 日本サイズ表 ここから -->
+  <div class="goods-detail-description--size-guide-link-reference-size" style="display: none;">
+    <a href="#">日本サイズ表 <span
+        class="icon-window"></span></a>
+  </div>
+  <script>
+    jQuery(document).ready(function () {
+      jQuery(".goods-detail-description--size-guide-link-reference-size").insertBefore(".goods-detail-description--size-guide-link");
+      jQuery('.goods-detail-description--size-guide-link-reference-size').css('display', 'block');
+    });
+  </script>
+  <!-- 日本サイズ表 ここまで -->
+
+
+  <!-- ショッピングローン 分割60回 ここから -->
+  <div class="block-goods-detail-loan-message-inner" style="display:none;">
+    <div class="block-price" style="display:none;">
+      <p><span id="times"></span>回払いなら月々 <span id="price"></span>　のお支払いでご購入いただけます。</p>
+    </div>
+    <div class="block-jaccs">
+      <a href="https://ecredit.jaccs.co.jp/Service?_TRANID=WFLoginQ&amp;KAMEITEN_BANGO=C5G0&amp;GOUKEIGAKU="
+        target="_blank">
+        <img src="{{section.settings.btn_jaccs_sp}}" alt="jaccs">
+      </a>
+    </div>
+    <div class="block-orico">
+      <form class="block-orico-form" target="_blank" action="https://order.orico.co.jp/weborder/start.do" method="POST">
+        <input type="hidden" name="DESCRIPTION_ID" value="S000">
+        <input type="hidden" name="KAMEI_NO" value="16029712">
+        <input type="hidden" name="KYAKU_SYU" value="010">
+        <input type="hidden" name="BACK_URL" value="http://www.orico.co.jp">
+        <input type="image" class="goods-orico-btn" img=""
+          src="{{section.settings.btn_orico_sp}}" border="0">
+      </form>
+    </div>
+    <div class="block-caution">
+      <p>※1回のご注文合計金額が税込3万円以上、月々3,000円以上のお支払いからご利用いただけます。</p>
+    </div>
+  </div>
+
+  <script>
+    jQuery(document).ready(function () {
+      if (jQuery('.block-add-cart--btn').length) {
+        jQuery('.block-goods-detail-loan-message-inner').appendTo('.block-goods-detail-loan-message');
+        jQuery('.block-goods-detail-loan-message-inner').css('display', 'block');
+        jQuery('.block-goods-detail-loan-message>p>span').html('<a href="https://allu-official.com/shop/pages/about.aspx#onlinestoreservice04">ショッピングローンが使えます</a>');
+        var price = jQuery('.block-goods-price > .price > .value').text();
+        if (jQuery('.block-goods-price--on-sales-price').length) {
+          var price = jQuery('.block-goods-price > .price > .value').text();
+        }
+        var numprice = Number(price.replace(/,/g, ''));
+        if (72000 <= numprice && numprice < 108000) {
+          var times = 24;
+        } else if (108000 <= numprice && numprice < 144000) {
+          var times = 36;
+        } else if (144000 <= numprice && numprice < 180000) {
+          var times = 48;
+        } else if (180000 <= numprice) { var times = 60; }
+        if (numprice >= 72000) {
+          var numloanprice = numprice / times;
+          var numloanpriceceil = Math.ceil(numloanprice);
+          var numcommaloanprice = Number(numloanpriceceil).toLocaleString(undefined, { maximumFractionDigits: 20 });
+          var loanprice = String(numcommaloanprice);
+          jQuery('span#price').text(loanprice);
+          jQuery('span#times').text(times);
+          jQuery('.block-price').css('display', 'block');
+        }
+      }
+    });
+  </script>
+
+{{ 'allu-block-goods-detail.css' | asset_url | stylesheet_tag }}
+
+  <!-- ショッピングローン 分割60回 ここまで -->
+  </main>
+</div>
+</div>
+
+
+{% schema %}
+{
+  "name": "t:sections.allu-main-product.name",
+  "class": "product-section spaced-section",
+  "blocks": [
+    {
+    "type": "product-icon-request",
+    "name": "t:sections.allu-main-product.blocks.product-icon-request.name",
+    "settings": [
+    {
+      "type": "number",
+      "id": "request-id",
+      "label": {
+        "en": "Icon id"
+      }
+    },
+    {
+      "type": "text",
+      "id": "request-title",
+      "label": {
+        "en": "Icon title"
+      }
+    },
+    {
+      "type": "url",
+      "id": "src-on",
+      "label": {
+        "en": "Icon src on"
+      }
+    },
+    {
+      "type": "url",
+      "id": "src-off",
+      "label": {
+        "en": "Icon src off"
+      }
+    },
+    {
+      "type": "text",
+      "id": "request-finish-txt",
+      "label": {
+        "en": "Icon active text"
+      }
+    }
+    ]
+  }],
+  "settings": [
+  {
+    "type": "url",
+    "id": "icon_souko",
+    "label": "icon_souko"
+  },
+  {
+    "type": "url",
+    "id": "icon_henpin",
+    "label": "icon_henpin"
+  },
+  {
+    "type": "url",
+    "id": "sale_image",
+    "label": "sale_image"
+  },
+  {
+    "type": "url",
+    "id": "btn_jaccs_sp",
+    "label": "btn_jaccs_sp"
+  },
+  {
+    "type": "url",
+    "id": "btn_orico_sp",
+    "label": "btn_orico_sp"
+  }
+  ]
+}
+{% endschema %}
