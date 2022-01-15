@@ -4,16 +4,8 @@ class ReviewFilters extends HTMLElement {
     this.fetchReviewFilterList()
   }
   
-
   fetchReviewFilterList() {
-    fetch(
-      this.dataset.url,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch(this.dataset.url)
       .then((response) => response.text())
       .then((text) => {
         this.innerHTML = text;

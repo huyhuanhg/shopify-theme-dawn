@@ -31,7 +31,7 @@
         "type": "text",
         "id": "api_url",
         "label": "api url",
-        "default": "https:\/\/a810-113-176-99-12.ngrok.io"
+        "default": "https:\/\/app-allu.com"
       }
     ]
   },

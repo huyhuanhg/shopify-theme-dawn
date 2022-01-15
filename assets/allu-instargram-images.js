@@ -7,15 +7,8 @@ class InstagramImages extends HTMLElement {
   
 
   fetchInstagramImages() {
-    fetch(
-      this.dataset.url,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => response.text())
+    fetch(this.dataset.url)
+      .then(response => response.text())
       .then((text) => {
         this.innerHTML = text;
         var splide = new Splide('.splide', {
