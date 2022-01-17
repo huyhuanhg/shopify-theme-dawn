@@ -3,9 +3,7 @@
 <div class="revico-comment-outer-head" data-review-count="656">
   <div class="block-top-event--header-wrapper">
     <h2 class="block-top-event--header-revico common-h2">
-      <a href="https://allu-official.com/shop/pages/userreview.aspx"
-        >USER REVIEW</a
-      >
+      <a href="#">{{ 'general.allu.user_review.title' | t }}</a>
     </h2>
   </div>
 </div>
@@ -15,21 +13,19 @@
   <div class="revico-comment-main revico-widget">
     <div class="revico-comment-header">
       <div class="revico-comment-header-wrapper">
-        <div class="revico-comment-filter"><span>絞り込み</span></div>
-        <div class="revico-comment-sort"><span>表示：新しい順</span></div>
+        <div class="revico-comment-filter"><span>{{ 'general.allu.user_review.search_text' | t }}</span></div>
+        <div class="revico-comment-sort"><span>{{ 'general.allu.user_review.display_by' | t }}</span></div>
         <ul class="revico-comment-sort-select" style="display: none">
-          <li data-sort="date">新しい順</li>
-          <li data-sort="helpful">参考になった順</li>
-          <li data-sort="like">Like!が多い順</li>
+          <li data-sort="date">{{ 'general.allu.user_review.date' | t }}</li>
+          <li data-sort="helpful">{{ 'general.allu.user_review.helpful' | t }}</li>
+          <li data-sort="like">{{ 'general.allu.user_review.like' | t }}</li>
         </ul>
       </div>
     </div>
     <div class="revico-comment-tagcloud" style="">
       <div class="revico-comment-tagcloud-wrapper">
-        <p
-          class="revico-comment-tagcloud-tag revico-comment-tagcloud-description"
-        >
-          気になるレビューを表示<span style="display: none"></span>
+        <p class="revico-comment-tagcloud-tag revico-comment-tagcloud-description">
+          {{ 'general.allu.user_review.tagcloud' | t }}
         </p>
       </div>
       <p class="revico-comment-tagcloud-tag">
@@ -41,29 +37,26 @@
       </p>
     </div>
 
-    <script
-      src="{{ 'allu-user-review-content.js' | asset_url }}"
-      defer="defer"
-    ></script>
+    <script src="{{ 'allu-user-review-content.js' | asset_url }}" defer="defer"></script>
     <review-contents
       data-url="{{settings.api_url}}/api/user-review"
     ></review-contents>
 
     <div class="revico-comment-footer">
       <div class="revico-review-comment-footer--more">
-        <button type="button"><span>もっと見る</span></button>
+        <button type="button"><span>{{ 'general.allu.user_review.footer_more' | t }}</span></button>
       </div>
       <div class="revico-comment-footer--paging-buttons">
         <button type="button" class="revico-comment-footer--filter">
-          <span>絞り込み</span>
+          <span>{{ 'general.allu.user_review.footer_filter' | t }}</span>
         </button>
         <button type="button" class="revico-comment-footer--sort">
-          <span>表示：新しい順</span>
+          <span>{{ 'general.allu.user_review.footer_sort' | t }}</span>
         </button>
         <ul class="revico-comment-footer--sort-select" style="display: none">
-          <li data-sort="date">新しい順</li>
-          <li data-sort="helpful">参考になった順</li>
-          <li data-sort="like">Like!が多い順</li>
+          <li data-sort="date">{{ 'general.allu.user_review.date' | t }}</li>
+          <li data-sort="helpful">{{ 'general.allu.user_review.helpful' | t }}</li>
+          <li data-sort="like">{{ 'general.allu.user_review.like' | t }}</li>
         </ul>
       </div>
     </div>
@@ -100,6 +93,6 @@
 
 <div class="pane-right-menu">
   <div id="block_of_itemhistory" class="block-recent-item">
-    <h2 class="block-recent-item--header">最近見た商品</h2>
+    <h2 class="block-recent-item--header">{{ 'general.allu.user_review.product_more' | t }}</h2>
   </div>
 </div>

@@ -1,10 +1,13 @@
 <nav class="pane-globalnav">
     <div class="block-globalnav">
-        <div class="block-globalnav-logo"> <a class="block-globalnav-logo--link" href="/"> 
-            <img class="block-globalnav-logo--img" alt="sitelogo" src="{{settings.logo_url}}">
-            </a> </div>
+        <div class="block-globalnav-logo"> 
+            <a class="block-globalnav-logo--link" href="/"> 
+                <img class="block-globalnav-logo--img" alt="sitelogo" src="{{settings.logo_url}}">
+            </a> 
+        </div>
+
         <ul class="block-globalnav--item-list">
-            {% for link in linklists[section.settings.left_menu].links %}
+            {% for link in linklists[section.settings.left_menu_name].links %}
                 {% liquid 
                     if link.title == "Category"
                         assign childCategory = link.links
@@ -25,7 +28,7 @@
             {% endfor %}
         </ul>
         <ul class="block-globalnav--item-list-2">
-            {% for subLink in linklists[section.settings.right_menu].links %}
+            {% for subLink in linklists[section.settings.right_menu_name].links %}
             {% liquid 
                 assign subMenuTitle = subLink.title | strip | upcase
                 if subLink.title == "ONEGAI ALLU"
@@ -61,7 +64,7 @@
                 </div>
                 <div class="block-globalnav-menu--brand-list-link">
                     <ul>
-                        <li><a class="btn btn-default" href="{{urlBrand}}">VIEW ALL</a></li>
+                        <li><a class="btn btn-default" href="{{urlBrand}}">{{ 'general.allu.globalnav.brand_view_more' | t }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -90,19 +93,17 @@
             <div class="block-global-search-form">
                 <form name="frmSearch" method="get" action="#">
                     <input class="block-global-search--keyword js-suggest-search js-global-search--keyword" type="text"
-                        value="" tabindex="1" id="q" placeholder="ブランド名・キーワードで探す" title="商品を検索する" name="q"
+                        value="" tabindex="1" id="q" placeholder="{{ 'general.allu.globalnav.search_placeholder' | t }}" title="{{ 'general.allu.globalnav.search_title' | t }}" name="q"
                         data-suggest-submit="on" autocomplete="off">
                     <label for="q" class="block-global-search--icon">
                         <button class="block-global-search--icon-button" type="submit"><span
                                 class="icon icon-search"></span></button>
                     </label>
                 </form>
-                <a
-                    class="close-btn block-global-search-toggle-content-close-btn js-block-global-search-toggle-content-close-btn">閉じる</a>
+                <a class="close-btn block-global-search-toggle-content-close-btn js-block-global-search-toggle-content-close-btn">{{ 'general.allu.globalnav.close_text' | t }}</a>
             </div>
         </div>
         <!-- 検索 -->
-        <!-- <div id="poplink"></div> -->
     </div>
 </nav>
 
@@ -134,20 +135,20 @@
 
 {% schema %}
 {
-  "name": "Global Navigation",
+  "name": "t:sections.allu-pane-globalnav.name",
   "settings": [
-  {
-    "type": "text",
-    "id": "left_menu",
-    "label": "Left menu",
-    "default": "MAIN-MENU"
-  },
-  {
-    "type": "text",
-    "id": "right_menu",
-    "label": "Right menu",
-    "default": "MAIN-SUB-MENU"
-  }
+    {
+      "type": "text",
+      "id": "left_menu_name",
+      "label": "t:sections.allu-pane-globalnav.settings.left_menu_name.label",
+      "default": "MAIN-MENU"
+    },
+    {
+      "type": "text",
+      "id": "right_menu_name",
+      "label": "t:sections.allu-pane-globalnav.settings.right_menu_name.label",
+      "default": "MAIN-SUB-MENU"
+    }
   ]
 }
 {% endschema %}

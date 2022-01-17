@@ -1525,6 +1525,41 @@
         }
       }
     },
+    "allu-pane-globalnav": {
+      "name": "Global navigation",
+      "settings": {
+        "left_menu_name": {
+          "label": "Left menu name"
+        },
+        "right_menu_name": {
+          "label": "Right menu name"
+        }
+      }
+    },
+    "allu-footer": {
+      "name": "Footer",
+      "blocks": {
+        "store_service": {
+          "name": "Online store service points",
+          "settings": {
+            "icon_src": {
+              "label": "Icon src"
+            },
+            "title": {
+              "label": "Points Title"
+            },
+            "des_content_html": {
+              "label": "Content of description"
+            }
+          }
+        }
+      },
+      "settings": {
+        "footer_menu_name": {
+          "label": "Footer menu name"
+        }
+      }
+    },
     "main-product": {
       "name": "Product information",
       "blocks": {

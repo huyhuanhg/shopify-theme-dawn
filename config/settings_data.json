@@ -11,6 +11,50 @@
     "type_body_font": "assistant_n4",
     "currency_code_enabled": true,
     "sections": {
+      "allu-pane-globalnav": {
+        "type": "allu-pane-globalnav",
+        "settings": {
+          "left_menu_name": "MAIN-MENU",
+          "right_menu_name": "MAIN-SUB-MENU"
+        }
+      },
+      "allu-footer": {
+        "type": "allu-footer",
+        "blocks": {
+          "store-service-0": {
+            "type": "store_service",
+            "settings": {
+              "icon_src": "https://allu-official.com/img/usr/common/footer/icn_footer_quality.png",
+              "title": "安心の品質",
+              "des_content_html": "すべての商品は経験豊かな鑑定士が査定済み。<br>責任を持って品質を保証します。"
+            }
+          },
+          "store-service-1": {
+            "type": "store_service",
+            "settings": {
+              "icon_src": "https://allu-official.com/img/usr/common/footer/icn_footer_return.png",
+              "title": "返品無料",
+              "des_content_html": "「サイズが合わなかった」「イメージと違った」等の<br>理由による返品が可能です。"
+            }
+          },
+          "store-service-2": {
+            "type": "store_service",
+            "settings": {
+              "icon_src": "https://allu-official.com/img/usr/common/footer/icn_footer_speed.png",
+              "title": "最短翌日お届け",
+              "des_content_html": "12時までにご入金の確認が取れた場合は当日に配送。<br>最短で翌日にお届けいたします。"
+            }
+          }
+        },
+        "block_order": [
+          "store-service-0",
+          "store-service-1",
+          "store-service-2"
+        ],
+        "settings": {
+          "footer_menu_name": "footer"
+        }
+      },
       "announcement-bar": {
         "type": "announcement-bar",
         "blocks": {
