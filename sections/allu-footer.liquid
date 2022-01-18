@@ -2,48 +2,25 @@
   <div class="container">
     <p id="footer_pagetop" class="block-page-top"><a href="javascript:void(0);"></a></p>
 
-    ahihi : {{ section.settings.footer_menu_name}}
     <!--ここから-->
     <div class="block-footer-description">
       <a href="#">
         <div class="container">
           <h2>{{ 'general.allu.footer.online_store_service' | t }}</h2>
           <ul class="points">
-            <li>
-              <p class="icon">
-                <img src="https://allu-official.com/img/usr/common/footer/icn_footer_quality.png" alt="安心の品質">
-              </p>
-              <div class="desc">
-                <h4>安心の品質</h4>
-                <p>
-                  すべての商品は経験豊かな鑑定士が査定済み。<br>
-                  責任を持って品質を保証します。
-                </p>
-              </div>
-            </li>
-            <li>
-              <p class="icon"><img src="https://allu-official.com/img/usr/common/footer/icn_footer_return.png"
-                  alt="返品無料"></p>
-              <div class="desc">
-                <h4>返品無料</h4>
-                <p>
-                  「サイズが合わなかった」「イメージと違った」等の<br>
-                  理由による返品が可能です。
-                </p>
-              </div>
-            </li>
-            <li>
-              <p class="icon"><img src="https://allu-official.com/img/usr/common/footer/icn_footer_speed.png"
-                  alt="最短翌日お届け">
-              </p>
-              <div class="desc">
-                <h4>最短翌日お届け</h4>
-                <p>
-                  12時までにご入金の確認が取れた場合は当日に配送。<br>
-                  最短で翌日にお届けいたします。
-                </p>
-              </div>
-            </li>
+            {%- for block in section.blocks -%} 
+              {% if block.type == "store_service" %}
+                <li>
+                  <p class="icon">
+                    <img src="{{ block.settings.icon_src }}" alt="{{ block.settings.title }}">
+                  </p>
+                  <div class="desc">
+                    <h4>{{ block.settings.title }}</h4>
+                    <p>{{ block.settings.des_content_html }}</p>
+                  </div>
+                </li>
+              {% endif %}
+            {% endfor %}
           </ul>
         </div>
       </a>
@@ -51,55 +28,38 @@
 
     <div class="block-footer-sns">
       <ul class="mailmagazine-line">
-        <li class="mailmagazine">
-          <div class="row">
-            <p><img src="https://allu-official.com/img/usr/common/footer/mail.png" alt="Mail"></p>
-            <div class="txt">
-              <p class="main">
-                メルマガで<br>新着情報やお得なクーポンをGET
-              </p>
-              <p class="sub">
-                ALLU ONLINEのメルマガサービスでは、新着情報やSALE情報、お得なクーポンをお届けします。<br><br>
-              </p>
-            </div>
-          </div>
-          <a href="https://allu-official.com/shop/customer/entry.aspx">
-            会員登録をする
-          </a>
-        </li>
-        <li class="line">
-          <div class="row">
-            <p><img src="https://allu-official.com/img/usr/common/footer/line.png" alt="LINE"></p>
-            <div class="txt">
-              <p class="main">
-                LINE公式アカウントなら<br>リアルタイムで新着情報をGET
-              </p>
-              <p class="sub">
-                ALLU ONLINEのLINE公式アカウントでは、新着情報をいち早くGETできます。入荷後即完売のアイテムも手に入れられるかも？
-              </p>
-            </div>
-          </div>
-          <a href="https://lin.ee/wv7OV06" target="_blank">
-            LINEともだち追加する
-          </a>
-        </li>
+
+        {%- for block in section.blocks -%} 
+          {% if block.type == "mail_magazine" %}
+            <li class="mailmagazine">
+              <div class="row">
+                <p><img src="{{block.settings.image_src}}" alt="{{block.settings.magazine_name}}"></p>
+                <div class="txt">
+                  <p class="main">
+                    {{block.settings.magazine_main_html}}
+                  </p>
+                  <p class="sub">
+                    {{block.settings.magazine_sub_html}}
+                  </p>
+                </div>
+              </div>
+              <a href="{{block.settings.link}}">
+                {{block.settings.link_text}}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
       </ul>
       <ul class="sns-list">
-        <li class="sns-item instagram">
-          <a href="https://twitter.com/allu__official" target="_blank">
-            <img src="https://allu-official.com/img/usr/common/footer/twitter.png" alt="Twitter">Twitter
-          </a>
-        </li>
-        <li class="sns-item instagram">
-          <a href="https://www.instagram.com/allu_onlinestore/" target="_blank">
-            <img src="https://allu-official.com/img/usr/common/footer/insta.png" alt="INSTAGRAM">INSTAGRAM
-          </a>
-        </li>
-        <li class="sns-item facebook">
-          <a href="https://www.facebook.com/Allu_onlinestore-2270272379883513/" target="_blank">
-            <img src="https://allu-official.com/img/usr/common/footer/facebook.png" alt="Facebook">Facebook
-          </a>
-        </li>
+        {%- for block in section.blocks -%} 
+          {% if block.type == "sns_item" %}
+            <li class="sns-item {{block.settings.sns_item_class}}">
+              <a href="{{block.settings.sns_item_link}}" target="_blank">
+                <img src="{{block.settings.sns_item_image}}" alt="{{block.settings.sns_item_name}}">{{block.settings.sns_item_name}}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
       </ul>
     </div>
 
@@ -142,7 +102,7 @@
     <div class="container">
       <div class="block-footer-privacy-mark">
         <a href="#" target="block-category-style-p--item__haveimg"> 
-          <img src="https://allu-official.com/img/usr/common/footer/footer_privacy_mark.gif" alt="たいせつにしますプライバシー 17002456(02)"> </a>
+          <img src="{{section.settings.footer_privacy_mark}}" alt="{{section.settings.footer_privacy_mark_alt}}"> </a>
       </div>
       <p id="copyright" class="block-copyright">{{ 'general.allu.footer.copy' | t }}</p>
     </div>
@@ -167,25 +127,94 @@
         {
           "type": "text",
           "id": "title",
-          "default": "footer",
           "label": "t:sections.allu-footer.blocks.store_service.settings.title.label"
         },
         {
           "type": "text",
           "id": "des_content_html",
-          "default": "footer",
           "label": "t:sections.allu-footer.blocks.store_service.settings.des_content_html.label"
+        }
+      ]
+    },
+    {
+      "type": "mail_magazine",
+      "name": "t:sections.allu-footer.blocks.mail_magazine.name",
+      "settings": [
+        {
+          "type": "url",
+          "id": "image_src",
+          "label": "t:sections.allu-footer.blocks.mail_magazine.settings.image_src.label"
+        },
+        {
+          "type": "text",
+          "id": "magazine_name",
+          "label": "t:sections.allu-footer.blocks.mail_magazine.settings.magazine_name.label"
+        },
+        {
+          "type": "text",
+          "id": "magazine_main_html",
+          "label": "t:sections.allu-footer.blocks.mail_magazine.settings.magazine_main_html.label"
+        },
+        {
+          "type": "text",
+          "id": "magazine_sub_html",
+          "label": "t:sections.allu-footer.blocks.mail_magazine.settings.magazine_sub_html.label"
+        },
+        {
+          "type": "text",
+          "id": "link",
+          "label": "t:sections.allu-footer.blocks.mail_magazine.settings.link.label"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "t:sections.allu-footer.blocks.mail_magazine.settings.link_text.label"
+        }
+      ]
+    },
+    {
+      "type": "sns_item",
+      "name": "t:sections.allu-footer.blocks.sns_item.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "sns_item_class",
+          "label": "t:sections.allu-footer.blocks.sns_item.settings.sns_item_class.label"
+        },
+        {
+          "type": "url",
+          "id": "sns_item_link",
+          "label": "t:sections.allu-footer.blocks.sns_item.settings.sns_item_link.label"
+        },
+        {
+          "type": "text",
+          "id": "sns_item_name",
+          "label": "t:sections.allu-footer.blocks.sns_item.settings.sns_item_name.label"
+        },
+        {
+          "type": "url",
+          "id": "sns_item_image",
+          "label": "t:sections.allu-footer.blocks.sns_item.settings.sns_item_image.label"
         }
       ]
     }
   ],
   "settings": [
-    {
-      "type": "text",
-      "id": "footer_menu_name",
-      "label": "t:sections.allu-footer.settings.footer_menu_name.label",
-      "default": "footer"
-    }
+  {
+    "type": "text",
+    "id": "footer_menu_name",
+    "label": "t:sections.allu-footer.settings.footer_menu_name.label"
+  },
+  {
+    "type": "url",
+    "id": "footer_privacy_mark",
+    "label": "t:sections.allu-footer.settings.footer_privacy_mark.label"
+  },
+  {
+    "type": "text",
+    "id": "footer_privacy_mark_alt",
+    "label": "t:sections.allu-footer.settings.footer_privacy_mark_alt.label"
+  }
   ]
 }
 {% endschema %}

@@ -44,15 +44,71 @@
               "title": "最短翌日お届け",
               "des_content_html": "12時までにご入金の確認が取れた場合は当日に配送。<br>最短で翌日にお届けいたします。"
             }
+          },
+          "mail-magazine-0": {
+            "type": "mail_magazine",
+            "settings": {
+              "image_src": "https://allu-official.com/img/usr/common/footer/mail.png",
+              "magazine_name": "Mail",
+              "magazine_main_html": "メルマガで<br>新着情報やお得なクーポンをGET",
+              "magazine_sub_html": "ALLU ONLINEのメルマガサービスでは、新着情報やSALE情報、お得なクーポンをお届けします。<br><br>",
+              "link": "#",
+              "link_text": "会員登録をする"
+            }
+          },
+          "mail-magazine-1": {
+            "type": "mail_magazine",
+            "settings": {
+              "image_src": "https://allu-official.com/img/usr/common/footer/line.png",
+              "magazine_name": "LINE",
+              "magazine_main_html": "LINE公式アカウントなら<br>リアルタイムで新着情報をGET",
+              "magazine_sub_html": "ALLU ONLINEのLINE公式アカウントでは、新着情報をいち早くGETできます。入荷後即完売のアイテムも手に入れられるかも？",
+              "link": "#",
+              "link_text": "LINEともだち追加する"
+            }
+          },
+          "sns_item-0": {
+            "type": "sns_item",
+            "settings": {
+              "sns_item_class": "instagram",
+              "sns_item_link": "#",
+              "sns_item_name": "Twitter",
+              "sns_item_image": "https://allu-official.com/img/usr/common/footer/twitter.png"
+            }
+          },
+          "sns_item-1": {
+            "type": "sns_item",
+            "settings": {
+              "sns_item_class": "instagram",
+              "sns_item_link": "#",
+              "sns_item_name": "INSTAGRAM",
+              "sns_item_image": "https://allu-official.com/img/usr/common/footer/insta.png"
+            }
+          },
+          "sns_item-2": {
+            "type": "sns_item",
+            "settings": {
+              "sns_item_class": "facebook",
+              "sns_item_link": "#",
+              "sns_item_name": "Facebook",
+              "sns_item_image": "https://allu-official.com/img/usr/common/footer/facebook.png"
+            }
           }
         },
         "block_order": [
           "store-service-0",
           "store-service-1",
-          "store-service-2"
+          "store-service-2",
+          "mail-magazine-0",
+          "mail-magazine-1",
+          "sns_item-0",
+          "sns_item-1",
+          "sns_item-2"
         ],
         "settings": {
-          "footer_menu_name": "footer"
+          "footer_menu_name": "footer",
+          "footer_privacy_mark": "https://allu-official.com/img/usr/common/footer/footer_privacy_mark.gif",
+          "footer_privacy_mark_alt": "たいせつにしますプライバシー 17002456(02)"
         }
       },
       "announcement-bar": {
