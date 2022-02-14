@@ -1525,6 +1525,87 @@
         }
       }
     },
+    "allu-pane-globalnav": {
+      "name": "Global navigation",
+      "settings": {
+        "left_menu_name": {
+          "label": "Left menu name"
+        },
+        "right_menu_name": {
+          "label": "Right menu name"
+        }
+      }
+    },
+    "allu-footer": {
+      "name": "Footer",
+      "blocks": {
+        "store_service": {
+          "name": "Online store service points",
+          "settings": {
+            "icon_src": {
+              "label": "Icon src"
+            },
+            "title": {
+              "label": "Points Title"
+            },
+            "des_content_html": {
+              "label": "Content of description"
+            }
+          }
+        },
+        "mail_magazine": {
+          "name": "Mail magazine",
+          "settings": {
+            "image_src": {
+              "label": "Image source"
+            },
+            "magazine_name": {
+              "label": "Magazine Name"
+            },
+            "magazine_main_html": {
+              "label": "Magazine description main"
+            },
+            "magazine_sub_html": {
+              "label": "Magazine description sub"
+            },
+            "link": {
+              "label": "Magazine link href"
+            },
+            "link_text": {
+              "label": "Magazine link text"
+            }
+          }
+        },
+        "sns_item": {
+          "name": "SNS item",
+          "settings": {
+            "sns_item_class": {
+              "label": "Class sns item"
+            },
+            "sns_item_link": {
+              "label": "Sns item href"
+            },
+            "sns_item_name": {
+              "label": "Sns item name"
+            },
+            "sns_item_image": {
+              "label": "Sns item image source"
+            }
+          }
+        }
+      },
+      "settings": {
+        "footer_menu_name": {
+          "label": "Footer menu name"
+        },
+        "footer_privacy_mark": {
+          "label": "Footer privacy mark image source"
+        },
+        "footer_privacy_mark_alt": {
+          "label": "Footer privacy mark image description"
+        }
+      }
+    },
     "main-product": {
       "name": "Product information",
       "blocks": {

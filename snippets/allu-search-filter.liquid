@@ -1,0 +1,100 @@
+<style>
+    ul {
+        list-style: none;
+    }
+    .filter-result {
+        height: 70px;
+        background-color: black;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .filter-list>.filter-item {
+        position: relative;
+    }
+
+    .filter-list > .filter-item > .toggle-icon {
+        position: absolute;
+        top: 0;
+        font-weight: bold;
+        font-size: 200%;
+        right: 20px;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .filter-list>.filter-item .filter-content {
+        display: none;
+    }
+
+    .filter-list>.filter-item.open .filter-content {
+        display: block;
+    }
+    .categories-list ul {
+        display: none;
+    }
+    .categories-list.open ul {
+        display: block;
+    }
+</style>
+
+{% assign product_types = search.filters | where: "param_name", "filter.p.product_type" | first %}
+
+{% assign child_categories = search.filters | where: "param_name", "filter.v.option.category" | first %}
+
+{% assign colors = search.filters | where: "param_name", "filter.v.option.color" | first %}
+
+<div>
+    <div class="filter-result"><span>Result: <span id="search_results_count">{{search.results_count}}</span></span></div>
+    <div class="filter-form">
+        <product-filter data-is-convert-language="{{isConvertLanguage}}" data-section-id="{{section.id}}">
+            <form action="">
+                <input type="hidden" name="type" value="product">
+                <ul class="filter-list">
+                    <li class="filter-item">
+                        <div class="toggle-icon">+</div>
+                        <span class="filter-title">Categories</span>
+                        <ul class="filter-content">
+                            {% for link in linklists['category'].links %}
+                              {%assign parentCategoryTitle = link.title %}
+                              {%assign parentCategory = product_types.values | where: 'value', parentCategoryTitle | first %}
+                              <li class="categories-list {% if parentCategory.active %}open{% endif %}">
+                                <label>
+                                  <input type="checkbox" name="filter.p.product_type" value="{{link.title}}" {% if parentCategory.active %}checked{% endif %}> 
+                                  {{link.title}}
+                                </label>
+                                <ul>
+                                  {% for childCategory in link.links %}
+                                  {%assign category = child_categories.values | where: 'value', childCategory.title | first %}
+                                  <li>
+                                    <label>
+                                      <input type="checkbox" name="filter.v.option.category" value="{{childCategory.title}}" {% if category.active %}checked{% endif %}>
+                                      {{childCategory.title}}
+                                    </label>
+                                  </li>
+                                  {% endfor %}
+                                </ul>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                    </li>
+                    <li class="filter-item">
+                        <div class="toggle-icon">+</div>
+                        <div><span class="filter-title">Colors</span></div>
+                        <div  class="filter-content">
+                            {% for colorValue in colors.values %}
+                                <label style="display:inline-block; margin-right: 15px;"><input type="checkbox" name="{{ colorValue.param_name }}" value="{{ colorValue.value }}" {% if colorValue.active %}checked{% endif %}/>
+                                    <span style="color: {{ colorValue.value }};">{{ colorValue.value }}</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </product-filter>
+    </div>
+</div>

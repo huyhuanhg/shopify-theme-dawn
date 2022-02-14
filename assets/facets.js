@@ -157,14 +157,23 @@ class FacetFiltersForm extends HTMLElement {
   onSubmitHandler(event) {
     event.preventDefault();
     const formData = new FormData(event.target.closest('form'));
-    const searchParams = new URLSearchParams(formData).toString();
-    FacetFiltersForm.renderPage(searchParams, event);
+    const searchParams = new URLSearchParams(formData);
+    const categories = [];
+    const newParams = [...searchParams].map(param => {
+      if (!param[0].match(/categories\[(.+?)\]/)) {
+        return `${param[0]}=${param[1]}`
+      } else {
+        categories.push(param[1]);
+      }
+    })
+    newParams.push(`categories=${categories.join(',')}`);
+    FacetFiltersForm.renderPage(newParams.filter(param => param).join('&'), event);
   }
-
   onActiveFilterClick(event) {
     event.preventDefault();
     FacetFiltersForm.toggleActiveFacets();
     const url = event.currentTarget.href.indexOf('?') == -1 ? '' : event.currentTarget.href.slice(event.currentTarget.href.indexOf('?') + 1);
+    
     FacetFiltersForm.renderPage(url);
   }
 }

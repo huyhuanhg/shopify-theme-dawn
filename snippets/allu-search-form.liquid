@@ -1,0 +1,16 @@
+<form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
+    <div class="field">
+        <input id="search_keyword" class="search__input field__input" type="search" name="keyword" value="{{ search.terms | escape | split: "OR" | first | strip }}"
+            placeholder="{{ 'general.search.search' | t }}" {%- if settings.predictive_search_enabled -%}
+            role="combobox" aria-expanded="false" aria-owns="predictive-search-results-list"
+            aria-controls="predictive-search-results-list" aria-haspopup="listbox" aria-autocomplete="list"
+            autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" {%- endif -%}>
+        <input type="hidden" name="options[prefix]" value="last">
+        <input type="hidden" name="type" value="product">
+        <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+            <svg class="icon icon-search" aria-hidden="true" focusable="false" role="presentation">
+                <use href="#icon-search">
+            </svg>
+        </button>
+    </div>
+</form>

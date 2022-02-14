@@ -14,7 +14,7 @@
         "type": "text",
         "id": "logo_url",
         "label": "logo url",
-        "default": "https://allu-official.com/img/usr/common/header/logo_allu.svg"
+        "default": "https:\/\/allu-official.com\/img\/usr\/common\/header\/logo_allu.svg"
       },
       {
         "type": "text",
@@ -31,7 +31,7 @@
         "type": "text",
         "id": "api_url",
         "label": "api url",
-        "default": "https:\/\/app-allu.com"
+        "default": "https:\/\/b2f0-171-236-4-165.ngrok.io"
       }
     ]
   },

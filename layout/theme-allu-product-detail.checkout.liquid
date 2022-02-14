@@ -5,7 +5,7 @@
 
 	<meta charset="UTF-8">
 
-	{% include 'globo.filter.script' %}{{ content_for_header }}
+	{{ content_for_header }}
 
 	<title>{{product.title}}</title>
 
@@ -68,7 +68,7 @@
 
 		{% section 'allu-pane-globalnav' %}
 
-		{% section 'allu-pane-topic-path' %}
+		<div style="text-align: center; padding: 50px 0;"><span style="font-size: 200%; color: rgb(140, 140, 250); font-weight: bold;">This is checkout layout</span></div>
 
 		<main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
 			{{ content_for_layout }}
@@ -82,6 +82,5 @@
 		src="https://checkout-api.worldshopping.jp/v1/script?token=allu-official_com"></script>
 	<!-- End WorldShopping Checkout -->
 
-{% include 'globo.filter.action' %}
-	</body>
+</body>
 </html>

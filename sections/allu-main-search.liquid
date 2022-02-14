@@ -1,0 +1,74 @@
+<style>
+  .search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+  }
+  .search-filter {
+
+  }
+  [class^=col-] {
+    float: left;
+  }
+  .col-3 {
+    width: 25%;
+  }
+  .col-9 {
+    width: 75%;
+  }
+  .row::after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+</style>
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
+   replace:'\/','/' | 
+   replace:'%20',' ' | 
+   replace:'\u0026','&'
+-%}
+
+{% liquid 
+  assign queryString = pageUrl | split: '?'
+  if queryString.size > 1
+    assign queryString = queryString | last
+    assign queryParams = queryString | split: '&'
+    assign isConvertLanguage = false
+    assign keyword = ''
+    for param in queryParams
+      if param contains 'keyword='
+        assign keywordParam = param | split: '='
+        if keywordParam.size > 1
+          assign keyword = keywordParam | last
+        endif
+      elsif param contains 'q='
+        assign q = param | split: '='
+        if q.size > 1
+          assign q = q | last
+          if q contains 'OR'
+            assign isConvertLanguage = true
+          endif
+        endif
+      endif
+    endfor
+  endif
+%}
+
+<script src="{{ 'allu-facets.js' | asset_url }}" defer="defer"></script>
+
+<div class="search-container">
+  <div class="search-form">
+    {% render 'allu-search-form', keyword: keyword %}
+  </div>
+  <div class="row">
+    <div class="col-3 search-filter">
+      {% render 'allu-search-filter', q: q, isConvertLanguage: isConvertLanguage, keyword: keyword %}
+    </div>
+    <div class="col-9 search-result" >
+      {% render 'allu-search-result', isConvertLanguage: isConvertLanguage %}
+    </div>
+  </div>
+</div>

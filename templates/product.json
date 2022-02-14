@@ -52,22 +52,23 @@
         "product-icon-request-4"
       ],
       "settings": {
-        "icon_souko": "https://allu-official.com/img/icon/icon_souko.png",
-        "icon_henpin": "https://allu-official.com/img/sys/icon_henpin_ka.png",
-        "sale_image": "https://allu-official.com/img/sys/sale.png",
-        "btn_jaccs_sp": "https://allu-official.com/img/usr/about_allu_new/btn_jaccs_sp.png",
-        "btn_orico_sp": "https://allu-official.com/img/usr/about_allu_new/btn_orico_sp.png"
+        "icon_souko": "https:\/\/allu-official.com\/img\/icon\/icon_souko.png",
+        "icon_henpin": "https:\/\/allu-official.com\/img\/sys\/icon_henpin_ka.png",
+        "sale_image": "https:\/\/allu-official.com\/img\/sys\/sale.png",
+        "btn_jaccs_sp": "https:\/\/allu-official.com\/img\/usr\/about_allu_new\/btn_jaccs_sp.png",
+        "btn_orico_sp": "https:\/\/allu-official.com\/img\/usr\/about_allu_new\/btn_orico_sp.png"
       }
     },
     "instagram": {
       "type": "allu-instagram",
       "settings": {
-        "visumo_logo": "https:\/\/www.visumo.jp\/static_front/img\/visumo_logo.png"
+        "visumo_logo": "https:\/\/www.visumo.jp\/static_front\/img\/visumo_logo.png"
       }
     },
     "user-review": {
       "type": "allu-user-review",
-      "settings": {}
+      "settings": {
+      }
     }
   },
   "order": [

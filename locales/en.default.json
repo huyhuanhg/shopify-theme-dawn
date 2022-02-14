@@ -1,5 +1,45 @@
 {
   "general": {
+    "allu": {
+      "header": {
+        "login_html": "<span class=\"icon icon-login\"><\/span> <span class=\"label\">ログイン<\/span>",
+        "favorite": "お気に入り",
+        "item_list": "アイテム一覧",
+        "brand_list": "ブランド一覧",
+        "cart": "カート",
+        "back_order": "お取り寄せ"
+      },
+      "instagram": {
+        "title": "INSTAGRAM",
+        "description_html": "Instagramに<span style=\"color: red\">{{ store }}<\/span>をつけてコーデをシェアしよう。<br \/>SNSスタッフから掲載のご連絡後、あなたの写真がサイトにアップされます！"
+      },
+      "globalnav": {
+        "brand_view_more": "VIEW ALL",
+        "search_placeholder": "ブランド名・キーワードで探す",
+        "search_title": "商品を検索する",
+        "close_text": "閉じる"
+      },
+      "user_review": {
+        "title": "USER REVIEW",
+        "search_text": "絞り込み",
+        "display_by": "表示：新しい順",
+        "date": "新しい順",
+        "helpful": "参考になった順",
+        "like": "Like!が多い順",
+        "tagcloud": "気になるレビューを表示",
+        "footer_more": "もっと見る",
+        "footer_filter": "絞り込み",
+        "footer_sort": "表示：新しい順",
+        "product_more": "最近見た商品"
+      },
+      "footer": {
+        "online_store_service": "ONLINE STORE SERVICE",
+        "copy": "&copy; 2019 Valuence Japan Inc.",
+        "kouankyoka": "【東京都公安委員会許可】 第301102004121号",
+        "coution_title": "偽サイト・悪質サイトにご注意ください。",
+        "coution_text_html": "弊社と類似した商品や、弊社を装ったインターネットショッピングサイトが多数存在しております。<br>該当のサイト上では、無断で弊社の商品画像を使用しており、弊社による出品であるかのように案内されておりますが、弊社とは一切関係がございませんので、くれぐれもご注意ください。<a href=\"{{ url }}\">詳しくはこちら<\/a>"
+      }
+    },
     "password_page": {
       "login_form_heading": "Enter store using password:",
       "login_password_button": "Enter using password",

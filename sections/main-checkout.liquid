@@ -1,0 +1,176 @@
+<style>
+    .main-checkout {
+        background-color: bisque;
+        width: 80%;
+        margin: 0 auto 20px;
+        padding: 10px 20px;
+    }
+</style>
+{% assign pageurl = content_for_header | split:'"pageurl":"' | last | split:'"' | first %}
+{% assign pageurl = pageurl | replace: "huyhuan.myshopify.com\/pages\/checkout?", "" %}
+{% assign queryString = pageurl | split: '\u0026'%}
+{% for param in queryString %}
+{% if param contains "product" %}
+{% assign productParam = param | split: '=' %}
+{% assign productID = productParam[1] %}
+{% endif %}
+{% endfor %}
+
+{% if productID %}
+{% assign productID = productID | plus: 0 %}
+{% for product in collections.all.products %}
+{% if product.id == productID %}
+{% assign product_detail = product %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<div class="main-checkout">
+    <div data-step="1">
+        <h3>Step 1: Nhập thông tin khách hàng;</h3>
+        <ul style="margin-left: 10px;">
+            <li><b>Mô tả: </b>
+                <ul style="margin-left: 10px;">
+                    <li><b>Khởi tạo: </b>
+                        <ul style="margin-left: 10px;">
+                            <li>Lấy thông tin sản phẩm từ URL hoặc từ cart (nếu cart empty hoặc không có product id trên
+                                url thì redirect)</li>
+                            <li>Khởi tạo thông tin khách hàng (địa chỉ, ...) mặc định của form nhập nếu khách hàng đã
+                                đăng nhập</li>
+                        </ul>
+                    </li>
+                    <li><b>Hoàn thành:</b> Thông tin đã nhập vào form sẽ được lưu vào cookie</li>
+                </ul>
+            </li>
+        </ul>
+        <button class="submit">Next Step</button>
+    </div>
+    <div data-step="2">
+        <h3>Step 2: Chọn hình thức giao hàng</h3>
+        <ul style="margin-left: 10px;">
+            <li><b>Thông tin step 1:</b>
+                <ul style="margin-left: 10px;">
+                    <li class="data_information"></li>
+                </ul>
+            </li>
+        </ul>
+        <button class="submit">Next Step</button>
+        <button class="cancel">Pre Step</button>
+    </div>
+    <div data-step="3">
+        <h3>Step 3: Chọn phương thức thanh toán</h3>
+        <b>Mô tả: </b> sau khi click hoàn thành post api sẽ được gửi đi, nếu response status code 200, thực hiện create
+        order, add customer (với customer chưa đăng nhập), ... và xóa product trong cart
+        <ul style="margin-left: 10px;">
+            <li><b>Thông tin step 1:</b>
+                <ul style="margin-left: 10px;">
+                    <li class="data_information"></li>
+                </ul>
+            </li>
+            <li><b>Thông tin step 2:</b>
+                <ul style="margin-left: 10px;">
+                    <li class="data_shipping_method"></li>
+                </ul>
+            </li>
+        </ul>
+        <button class="submit">Next Step</button>
+        <button class="cancel">Pre Step</button>
+    </div>
+</div>
+<script>
+    const steps = ['information', 'shipping', 'payment'];
+
+    function getCookie(cname) {
+        let localStorageItem = localStorage.getItem(cname);
+        if (localStorageItem) {
+            return JSON.parse(localStorageItem);
+        }
+    }
+
+    const stepElms = document.querySelectorAll('.main-checkout>div');
+    var url = new URL(window.location.href);
+    var step = url.searchParams.get('step');
+
+    if (!step) {
+        step = steps[0];
+    }
+
+    if (step === 'information') {
+        // check cart is empty / product id is empty
+    } else {
+        // check cookie
+        const customerInfo = getCookie('customer-information');
+        if (step === 'shipping') {
+            if (!customerInfo) {
+                // redirect
+            } else {
+                const dataInformation = document.querySelector('.main-checkout>div:nth-child(2) .data_information')
+                for (const customerInfoKey in customerInfo) {
+                    dataInformation.innerHTML += `<b>${customerInfoKey}: </b>${customerInfo[customerInfoKey]}<br/>`;
+                }
+            }
+        } else {
+            const shippingMethod = getCookie('shipping-method');
+            if (customerInfo && shippingMethod) {
+                const dataInformation = document.querySelector('.main-checkout>div:nth-child(3) .data_information')
+                const dataShipping = document.querySelector('.main-checkout>div:nth-child(3) .data_shipping_method')
+                for (const customerInfoKey in customerInfo) {
+                    dataInformation.innerHTML += `<b>${customerInfoKey}: </b>${customerInfo[customerInfoKey]}<br/>`;
+                }
+                dataShipping.innerHTML = `<b>Phương thức giao hàng: </b> ${shippingMethod.ship_name}`
+            } else {
+                // redirect
+            }
+        }
+    }
+
+    const stepElmIndex = steps.indexOf(step);
+    stepElms.forEach((stepElm, stepIndex) => {
+        if (stepIndex === stepElmIndex) {
+            stepElm.style.display = 'block';
+        } else {
+            stepElm.style.display = 'none';
+        }
+        const btnNext = stepElm.querySelector('button.submit');
+        const btnPre = stepElm.querySelector('button.cancel');
+        if (btnPre) {
+            btnPre.onclick = () => {
+                window.location.replace(window.location.href.replace(/step=(\w+)?/, `step=${steps[stepElmIndex - 1]}`));
+            }
+        }
+        btnNext.onclick = () => {
+            if (stepElmIndex === 2) {
+                fetch(`{{settings.api_url}}/api/payment-demo`,
+                    {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            product_name: "{{product_detail.title}}",
+                            product_price: "{{product_detail.price | money}}"
+                        })
+                    })
+                    .then(response => response.json()).then(json => {
+                        console.log(json);
+                        alert('xem respone ở console.log')
+                    })
+                return;
+            }
+            if (stepElmIndex === 0) {
+                const customerCookieValue = {
+                    name: "Huấn",
+                    phone: "0935906860",
+                    address: "Quảng Bình",
+                    product_name: "{{product_detail.title}}",
+                    product_price: "{{product_detail.price | money}}"
+                }
+                localStorage.setItem('customer-information', JSON.stringify(customerCookieValue))
+            }
+            if (stepElmIndex === 1) {
+                localStorage.setItem('shipping-method', JSON.stringify({ ship_name: 'Standard' }))
+            }
+            window.location.replace(window.location.href.replace(/step=(\w+)?/, `step=${steps[stepElmIndex + 1]}`));
+        }
+    })
+</script>

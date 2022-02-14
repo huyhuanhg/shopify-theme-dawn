@@ -1,7 +1,8 @@
 {
+  "layout": "theme-allu-product-detail.checkout",
   "sections": {
     "main": {
-      "type": "allu-main-search",
+      "type": "main-checkout",
       "settings": {
       }
     }

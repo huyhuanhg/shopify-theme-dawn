@@ -184,9 +184,9 @@
 
 
               <div class="block-contact-stock-goods">
+                <!-- 店舗で実物を見てみる -->
                 <a class="block-contact-stock-goods--btn btn btn-default"
-                  href="#">店舗で実物を見てみる<span
-                    class="icon icon-stock"></span></a>
+                  href="/pages/checkout?step=information&product={{ product.id }}">Buy Now<span class="icon icon-stock"></span></a>
                 <!-- Ngày đến dự kiến ​​của các mặt hàng có sẵn -->
                 <script src="{{ 'allu-arrival-date.js' | asset_url }}" defer="defer"></script>
                 <estimated-arrival-date data-url="{{settings.api_url}}/api/estimated-arrival-date/{{ product.id }}"></estimated-arrival-date>
@@ -394,8 +394,7 @@
       <p><span id="times"></span>回払いなら月々 <span id="price"></span>　のお支払いでご購入いただけます。</p>
     </div>
     <div class="block-jaccs">
-      <a href="https://ecredit.jaccs.co.jp/Service?_TRANID=WFLoginQ&amp;KAMEITEN_BANGO=C5G0&amp;GOUKEIGAKU="
-        target="_blank">
+      <a href="https://ecredit.jaccs.co.jp/Service?_TRANID=WFLoginQ&amp;KAMEITEN_BANGO=C5G0&amp;GOUKEIGAKU={{ product.price | divided_by: 100 }}" target="_blank">
         <img src="{{section.settings.btn_jaccs_sp}}" alt="jaccs">
       </a>
     </div>
@@ -404,7 +403,12 @@
         <input type="hidden" name="DESCRIPTION_ID" value="S000">
         <input type="hidden" name="KAMEI_NO" value="16029712">
         <input type="hidden" name="KYAKU_SYU" value="010">
-        <input type="hidden" name="BACK_URL" value="http://www.orico.co.jp">
+        <input type="hidden" name="BRAND_MEI1" value="{{ product.title }}">
+        <input type="hidden" name="BRAND_SUU1" value="1">
+        <input type="hidden" name="BRAND_KIN1" value="{{ product.price | divided_by: 100 }}">
+        <input type="hidden" name="BRAND_GOKEI" value="{{ product.price | divided_by: 100 }}">
+        <input type="hidden" name="LOAN_KIN" value="{{ product.price | divided_by: 100 }}">
+        <input type="hidden" name="BACK_URL" value="https://huyhuan.myshopify.com/">
         <input type="image" class="goods-orico-btn" img=""
           src="{{section.settings.btn_orico_sp}}" border="0">
       </form>
@@ -413,6 +417,29 @@
       <p>※1回のご注文合計金額が税込3万円以上、月々3,000円以上のお支払いからご利用いただけます。</p>
     </div>
   </div>
+
+	<!-- <script src="{{ 'allu-create-order.js' | asset_url }}" defer></script>
+  <script>
+    console.log()
+  </script>
+<style>
+  button.btn-custom {
+    display: inline-block;
+    border: 1px solid green;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 15px;
+    color: green;
+    cursor: pointer;
+  }
+</style>
+  
+<create-order data-url="/admin/api/2021-10/orders.json" data-variant-id="{{product.variants[0].id}}" data-customer-email="hapitas.local@gmail.com" data-quantity="1">
+  <button  class="btn-custom">Mua ngay</button>    
+</create-order> -->
 
   <script>
     jQuery(document).ready(function () {
